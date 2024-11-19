@@ -1,13 +1,15 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "地区信息表")
 @TableName(value = "district_info")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class DistrictInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

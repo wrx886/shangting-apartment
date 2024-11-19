@@ -1,20 +1,19 @@
-package com.atguigu.lease.common.result;
+package com.github.wrx886.shangting_apartment_server.common.result;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/**
- * 全局统一返回结果类
- */
 @Data
+@Schema(description = "全局统一返回结果类")
 public class Result<T> {
 
-    //返回码
+    @Schema(description = "返回码")
     private Integer code;
 
-    //返回消息
+    @Schema(description = "返回消息")
     private String message;
 
-    //返回数据
+    @Schema(description = "返回数据")
     private T data;
 
     public Result() {
@@ -33,7 +32,6 @@ public class Result<T> {
         result.setMessage(resultCodeEnum.getMessage());
         return result;
     }
-
 
     public static <T> Result<T> ok(T data) {
         return build(data, ResultCodeEnum.SUCCESS);

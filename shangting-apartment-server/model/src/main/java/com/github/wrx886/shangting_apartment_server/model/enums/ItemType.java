@@ -1,8 +1,7 @@
-package com.github.wrx886.shangting_apartment_server.model.config.enums;
+package com.github.wrx886.shangting_apartment_server.model.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
-
 
 public enum ItemType implements BaseEnum {
 
@@ -10,9 +9,8 @@ public enum ItemType implements BaseEnum {
 
     ROOM(2, "房间");
 
-
-    @EnumValue
-    @JsonValue
+    @EnumValue // 实现枚举对象到枚举属性的转换，即将 枚举对象 转为 code 属性值
+    @JsonValue // 实现枚举对象到 json 的转换，即将 枚举对象 转为 code 属性值
     private Integer code;
     private String name;
 
@@ -20,7 +18,6 @@ public enum ItemType implements BaseEnum {
     public Integer getCode() {
         return this.code;
     }
-
 
     @Override
     public String getName() {

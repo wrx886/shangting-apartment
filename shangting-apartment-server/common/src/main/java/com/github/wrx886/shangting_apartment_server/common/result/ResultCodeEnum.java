@@ -1,4 +1,4 @@
-package com.atguigu.lease.common.result;
+package com.github.wrx886.shangting_apartment_server.common.result;
 
 import lombok.Getter;
 

@@ -1,18 +1,17 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.vo.room;
 
-import com.atguigu.lease.model.entity.*;
 import com.github.wrx886.shangting_apartment_server.web.admin.vo.attr.AttrValueVo;
 import com.github.wrx886.shangting_apartment_server.web.admin.vo.graph.GraphVo;
-import com.github.wrx886.shangting_apartment_server.model.config.entity.*;
 import com.github.wrx886.shangting_apartment_server.model.entity.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
-
 @Schema(description = "房间信息")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class RoomDetailVo extends RoomInfo {
 
     @Schema(description = "所属公寓信息")

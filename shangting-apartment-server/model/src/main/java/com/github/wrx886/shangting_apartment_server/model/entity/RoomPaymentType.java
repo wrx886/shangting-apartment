@@ -1,14 +1,16 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "房间&支付方式关联表")
 @TableName(value = "room_payment_type")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 public class RoomPaymentType extends BaseEntity {
 

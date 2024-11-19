@@ -1,14 +1,16 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
-import com.atguigu.lease.model.enums.ReleaseStatus;
+import com.github.wrx886.shangting_apartment_server.model.enums.ReleaseStatus;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "公寓信息表")
 @TableName(value = "apartment_info")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class ApartmentInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

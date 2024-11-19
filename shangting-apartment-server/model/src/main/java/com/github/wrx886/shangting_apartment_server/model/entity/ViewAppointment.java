@@ -1,16 +1,18 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
-import com.atguigu.lease.model.enums.AppointmentStatus;
+import com.github.wrx886.shangting_apartment_server.model.enums.AppointmentStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
 @Schema(description = "预约看房信息表")
 @TableName(value = "view_appointment")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class ViewAppointment extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

@@ -1,7 +1,5 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.vo.agreement;
 
-import com.atguigu.lease.model.entity.*;
-import com.github.wrx886.shangting_apartment_server.model.config.entity.*;
 import com.github.wrx886.shangting_apartment_server.model.entity.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

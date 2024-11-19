@@ -1,12 +1,13 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import com.atguigu.lease.model.enums.LeaseSourceType;
-import com.atguigu.lease.model.enums.LeaseStatus;
+import com.github.wrx886.shangting_apartment_server.model.enums.LeaseSourceType;
+import com.github.wrx886.shangting_apartment_server.model.enums.LeaseStatus;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Schema(description = "租约信息表")
 @TableName(value = "lease_agreement")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class LeaseAgreement extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

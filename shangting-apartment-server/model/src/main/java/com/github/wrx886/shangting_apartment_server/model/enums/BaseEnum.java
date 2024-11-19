@@ -1,4 +1,4 @@
-package com.github.wrx886.shangting_apartment_server.model.config.enums;
+package com.github.wrx886.shangting_apartment_server.model.enums;
 
 public interface BaseEnum {
 

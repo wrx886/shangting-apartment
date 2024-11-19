@@ -1,14 +1,15 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "支付方式表")
 @TableName(value = "payment_type")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class PaymentType extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -24,6 +25,4 @@ public class PaymentType extends BaseEntity {
     @Schema(description = "付费说明")
     @TableField(value = "additional_info")
     private String additionalInfo;
-
-
 }

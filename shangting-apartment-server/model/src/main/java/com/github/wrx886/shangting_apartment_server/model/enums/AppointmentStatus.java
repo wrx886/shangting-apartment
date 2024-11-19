@@ -1,4 +1,4 @@
-package com.github.wrx886.shangting_apartment_server.model.config.enums;
+package com.github.wrx886.shangting_apartment_server.model.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;

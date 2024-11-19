@@ -1,34 +1,42 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.controller.apartment;
 
-
 import com.github.wrx886.shangting_apartment_server.common.result.Result;
 import com.github.wrx886.shangting_apartment_server.model.entity.AttrKey;
 import com.github.wrx886.shangting_apartment_server.model.entity.AttrValue;
+import com.github.wrx886.shangting_apartment_server.web.admin.service.AttrKeyService;
+import com.github.wrx886.shangting_apartment_server.web.admin.service.AttrValueService;
 import com.github.wrx886.shangting_apartment_server.web.admin.vo.attr.AttrKeyVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @Tag(name = "房间属性管理")
 @RestController
 @RequestMapping("/admin/attr")
 public class AttrController {
+    @Autowired
+    private AttrKeyService attrKeyService;
+
+    @Autowired
+    private AttrValueService attrValueService;
 
     @Operation(summary = "新增或更新属性名称")
     @PostMapping("key/saveOrUpdate")
-    public Result saveOrUpdateAttrKey(@RequestBody AttrKey attrKey) {
+    public Result<Void> saveOrUpdateAttrKey(@RequestBody AttrKey attrKey) {
+        attrKeyService.saveOrUpdate(attrKey);
         return Result.ok();
     }
 
     @Operation(summary = "新增或更新属性值")
     @PostMapping("value/saveOrUpdate")
-    public Result saveOrUpdateAttrValue(@RequestBody AttrValue attrValue) {
+    public Result<Void> saveOrUpdateAttrValue(@RequestBody AttrValue attrValue) {
+        attrValueService.saveOrUpdate(attrValue);
         return Result.ok();
     }
-
 
     @Operation(summary = "查询全部属性名称和属性值列表")
     @GetMapping("list")

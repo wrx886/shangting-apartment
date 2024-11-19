@@ -1,13 +1,15 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "杂项费用值表")
 @TableName(value = "fee_value")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class FeeValue extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

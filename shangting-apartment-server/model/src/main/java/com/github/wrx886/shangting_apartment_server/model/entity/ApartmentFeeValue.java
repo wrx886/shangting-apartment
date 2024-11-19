@@ -1,15 +1,16 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "公寓&杂费关联表")
 @TableName(value = "apartment_fee_value")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 public class ApartmentFeeValue extends BaseEntity {
 

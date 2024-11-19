@@ -1,14 +1,16 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "公寓&配套关系")
 @TableName(value = "apartment_facility")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 public class ApartmentFacility extends BaseEntity {
 
@@ -21,6 +23,4 @@ public class ApartmentFacility extends BaseEntity {
     @Schema(description = "设施id")
     @TableField(value = "facility_id")
     private Long facilityId;
-
-
 }

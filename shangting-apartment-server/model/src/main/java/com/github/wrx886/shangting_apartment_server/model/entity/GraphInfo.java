@@ -1,7 +1,7 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import com.atguigu.lease.model.enums.ItemType;
+import com.github.wrx886.shangting_apartment_server.model.enums.ItemType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
@@ -9,6 +9,7 @@ import lombok.*;
 @Schema(description = "图片信息表")
 @TableName(value = "graph_info")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class GraphInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

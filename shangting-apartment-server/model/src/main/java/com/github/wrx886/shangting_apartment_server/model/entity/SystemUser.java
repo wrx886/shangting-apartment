@@ -1,16 +1,17 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
-import com.atguigu.lease.model.enums.BaseStatus;
-import com.atguigu.lease.model.enums.SystemUserType;
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.github.wrx886.shangting_apartment_server.model.enums.BaseStatus;
+import com.github.wrx886.shangting_apartment_server.model.enums.SystemUserType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "员工信息")
 @TableName(value = "system_user")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class SystemUser extends BaseEntity {
 
 

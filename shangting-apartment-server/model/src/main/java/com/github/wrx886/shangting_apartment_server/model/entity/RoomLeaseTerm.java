@@ -1,4 +1,4 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
  */
 @TableName(value = "room_lease_term")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Schema(description = "房间租期关系表")
 @Builder
 @AllArgsConstructor

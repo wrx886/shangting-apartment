@@ -1,14 +1,16 @@
-package com.atguigu.lease.model.entity;
+package com.github.wrx886.shangting_apartment_server.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import com.atguigu.lease.model.enums.ItemType;
+import com.github.wrx886.shangting_apartment_server.model.enums.ItemType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "标签信息表")
 @TableName(value = "label_info")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class LabelInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -20,6 +22,5 @@ public class LabelInfo extends BaseEntity {
     @Schema(description = "标签名称")
     @TableField(value = "name")
     private String name;
-
 
 }
