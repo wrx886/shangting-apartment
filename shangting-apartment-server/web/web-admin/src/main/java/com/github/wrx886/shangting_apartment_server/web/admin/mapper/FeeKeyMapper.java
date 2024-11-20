@@ -1,6 +1,10 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.mapper;
 
 import com.github.wrx886.shangting_apartment_server.model.entity.FeeKey;
+import com.github.wrx886.shangting_apartment_server.web.admin.vo.fee.FeeKeyVo;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -10,7 +14,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.atguigu.lease.model.FeeKey
 */
 public interface FeeKeyMapper extends BaseMapper<FeeKey> {
-
+    // 查询全部杂费名称和杂费值列表
+    List<FeeKeyVo> feeInfoList();
 }
 
 

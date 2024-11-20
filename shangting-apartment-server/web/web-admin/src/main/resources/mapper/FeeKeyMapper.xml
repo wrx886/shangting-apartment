@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.wrx886.shangting_apartment_server.web.admin.mapper.FeeKeyMapper">
+    <resultMap id="FeeKeyVo"
+        type="com.github.wrx886.shangting_apartment_server.web.admin.vo.fee.FeeKeyVo">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <collection property="feeValueList"
+            ofType="com.github.wrx886.shangting_apartment_server.model.entity.FeeValue">
+            <id property="id" column="fee_value_id" />
+            <result property="name" column="fee_value_name" />
+            <result property="feeKeyId" column="fee_key_id" />
+            <result property="unit" column="fee_value_unit" />
+        </collection>
+    </resultMap>
 
+    <select id="feeInfoList" resultMap="FeeKeyVo"> SELECT k.id as id, k.name as name, v.id as
+        fee_value_id, v.name as fee_value_name, v.unit as fee_value_unit, v.fee_key_id FROM fee_key
+        as k LEFT JOIN fee_value as v ON k.id = v.fee_key_id AND v.is_deleted = 0 WHERE k.is_deleted
+        = 0 </select>
 </mapper>
