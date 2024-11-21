@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 @TableName(value = "apartment_fee_value")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
 public class ApartmentFeeValue extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
