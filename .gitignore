@@ -2,7 +2,8 @@
 /.idea/
 /.vscode/
 # 屏蔽 target 文件夹
-# /shangting-apartment-server/web/web-admin/target/
-# /shangting-apartment-server/web/web-app/target/
-# /shangting-apartment-server/common/target/
-# /shangting-apartment-server/model/target/
+/shangting-apartment-server/web/web-admin/target/
+/shangting-apartment-server/web/web-app/target/
+/shangting-apartment-server/common/target/
+/shangting-apartment-server/model/target/
+.fake
