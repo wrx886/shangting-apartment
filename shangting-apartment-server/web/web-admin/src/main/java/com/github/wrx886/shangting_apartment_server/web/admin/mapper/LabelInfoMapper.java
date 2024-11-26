@@ -1,6 +1,9 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.mapper;
 
 import com.github.wrx886.shangting_apartment_server.model.entity.LabelInfo;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -10,7 +13,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.atguigu.lease.model.LabelInfo
 */
 public interface LabelInfoMapper extends BaseMapper<LabelInfo> {
-
+    // 根据 公寓 id 查询 LabelInfo
+    List<LabelInfo> selectListByApartmentId(Long id);
 }
 
 

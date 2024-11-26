@@ -1,29 +1,44 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.service.impl;
 
+import com.github.wrx886.shangting_apartment_server.common.result.ApartmentException;
+import com.github.wrx886.shangting_apartment_server.common.result.ResultCodeEnum;
 import com.github.wrx886.shangting_apartment_server.model.entity.ApartmentFacility;
 import com.github.wrx886.shangting_apartment_server.model.entity.ApartmentFeeValue;
 import com.github.wrx886.shangting_apartment_server.model.entity.ApartmentInfo;
 import com.github.wrx886.shangting_apartment_server.model.entity.ApartmentLabel;
+import com.github.wrx886.shangting_apartment_server.model.entity.FacilityInfo;
 import com.github.wrx886.shangting_apartment_server.model.entity.GraphInfo;
+import com.github.wrx886.shangting_apartment_server.model.entity.LabelInfo;
+import com.github.wrx886.shangting_apartment_server.model.entity.RoomInfo;
 import com.github.wrx886.shangting_apartment_server.model.enums.ItemType;
 import com.github.wrx886.shangting_apartment_server.web.admin.mapper.ApartmentInfoMapper;
+import com.github.wrx886.shangting_apartment_server.web.admin.mapper.FacilityInfoMapper;
+import com.github.wrx886.shangting_apartment_server.web.admin.mapper.FeeValueMapper;
+import com.github.wrx886.shangting_apartment_server.web.admin.mapper.GraphInfoMapper;
+import com.github.wrx886.shangting_apartment_server.web.admin.mapper.LabelInfoMapper;
+import com.github.wrx886.shangting_apartment_server.web.admin.mapper.RoomInfoMapper;
 import com.github.wrx886.shangting_apartment_server.web.admin.service.ApartmentFacilityService;
 import com.github.wrx886.shangting_apartment_server.web.admin.service.ApartmentFeeValueService;
 import com.github.wrx886.shangting_apartment_server.web.admin.service.ApartmentInfoService;
 import com.github.wrx886.shangting_apartment_server.web.admin.service.ApartmentLabelService;
 import com.github.wrx886.shangting_apartment_server.web.admin.service.GraphInfoService;
+import com.github.wrx886.shangting_apartment_server.web.admin.service.RoomInfoService;
+import com.github.wrx886.shangting_apartment_server.web.admin.vo.apartment.ApartmentDetailVo;
 import com.github.wrx886.shangting_apartment_server.web.admin.vo.apartment.ApartmentItemVo;
 import com.github.wrx886.shangting_apartment_server.web.admin.vo.apartment.ApartmentQueryVo;
 import com.github.wrx886.shangting_apartment_server.web.admin.vo.apartment.ApartmentSubmitVo;
+import com.github.wrx886.shangting_apartment_server.web.admin.vo.fee.FeeValueVo;
 import com.github.wrx886.shangting_apartment_server.web.admin.vo.graph.GraphVo;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -51,6 +66,21 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
 
     @Autowired
     private ApartmentInfoMapper apartmentInfoMapper;
+
+    @Autowired
+    private GraphInfoMapper graphInfoMapper;
+
+    @Autowired
+    private FacilityInfoMapper facilityInfoMapper;
+
+    @Autowired
+    private LabelInfoMapper labelInfoMapper;
+
+    @Autowired
+    private FeeValueMapper feeValueMapper;
+
+    @Autowired
+    private RoomInfoService roomInfoService;
 
     // 保存或更新公寓信息
     @Override
@@ -130,5 +160,58 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
     @Override
     public Page<ApartmentItemVo> pageItem(Page<ApartmentItemVo> page, ApartmentQueryVo queryVo) {
         return apartmentInfoMapper.pageItem(page, queryVo);
+    }
+
+    // 根据ID获取公寓详细信息
+    @Override
+    public ApartmentDetailVo getDetailById(Long id) {
+        // 获取公寓信息
+        ApartmentInfo apartmentInfo = getById(id);
+        if (apartmentInfo == null) {
+            return new ApartmentDetailVo();
+        }
+        // 查询图片列表
+        List<GraphVo> graphInfoList = graphInfoMapper.selectListByItemTypeAndId(id, ItemType.APARTMENT);
+        // 查询标签列表
+        List<LabelInfo> labelInfoList = labelInfoMapper.selectListByApartmentId(id);
+        // 查询配套列表
+        List<FacilityInfo> facilityInfoList = facilityInfoMapper.selectListByApartmentId(id);
+        // 查询杂费列表
+        List<FeeValueVo> feeValueVoList = feeValueMapper.selectListByApartmentId(id);
+        // 整合
+        ApartmentDetailVo apartmentDetailVo = new ApartmentDetailVo();
+        BeanUtils.copyProperties(apartmentInfo, apartmentDetailVo);
+        apartmentDetailVo.setGraphVoList(graphInfoList);
+        apartmentDetailVo.setLabelInfoList(labelInfoList);
+        apartmentDetailVo.setFacilityInfoList(facilityInfoList);
+        apartmentDetailVo.setFeeValueVoList(feeValueVoList);
+        // 返回
+        return apartmentDetailVo;
+    }
+
+    // 根据 id 删除公寓
+    @Override
+    public void removeApartmentById(Long id) {
+        // 判断公寓是否含有房间
+        if (roomInfoService.count(new LambdaQueryWrapper<RoomInfo>()
+                .eq(RoomInfo::getApartmentId, id)) > 0) {
+            // 这里抛出一个异常，表示要先删除房间
+            throw new ApartmentException(ResultCodeEnum.ADMIN_APARTMENT_DELETE_ERROR);
+        }
+        // 删除公寓信息
+        removeById(id);
+        // 删除图片信息
+        graphInfoService.remove(new LambdaQueryWrapper<GraphInfo>()
+                .eq(GraphInfo::getItemType, ItemType.APARTMENT)
+                .eq(GraphInfo::getItemId, id));
+        // 删除配套信息
+        apartmentFacilityService.remove(new LambdaQueryWrapper<ApartmentFacility>()
+                .eq(ApartmentFacility::getApartmentId, id));
+        // 删除标签信息
+        apartmentLabelService.remove(new LambdaQueryWrapper<ApartmentLabel>()
+                .eq(ApartmentLabel::getApartmentId, id));
+        // 删除杂费信息
+        apartmentFeeValueService.remove(new LambdaQueryWrapper<ApartmentFeeValue>()
+                .eq(ApartmentFeeValue::getApartmentId, id));
     }
 }

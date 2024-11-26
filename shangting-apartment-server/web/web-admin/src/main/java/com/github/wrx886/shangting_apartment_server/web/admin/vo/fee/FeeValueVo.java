@@ -3,11 +3,12 @@ package com.github.wrx886.shangting_apartment_server.web.admin.vo.fee;
 import com.github.wrx886.shangting_apartment_server.model.entity.FeeValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Schema(description = "杂费值")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class FeeValueVo extends FeeValue {
-
     @Schema(description = "费用所对的fee_key名称")
     private String feeKeyName;
 }

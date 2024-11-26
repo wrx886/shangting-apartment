@@ -33,6 +33,13 @@ public class Result<T> {
         return result;
     }
 
+    public static Result<Void> build(Integer code, String message) {
+        Result<Void> result = build(null);
+        result.setCode(code);
+        result.setMessage(message);
+        return result;
+    }
+
     public static <T> Result<T> ok(T data) {
         return build(data, ResultCodeEnum.SUCCESS);
     }
@@ -42,6 +49,10 @@ public class Result<T> {
     }
 
     public static <T> Result<T> fail() {
-        return build(null, ResultCodeEnum.FAIL);
+        return Result.fail(null);
+    }
+
+    public static <T> Result<T> fail(T date) {
+        return build(date, ResultCodeEnum.FAIL);
     }
 }
