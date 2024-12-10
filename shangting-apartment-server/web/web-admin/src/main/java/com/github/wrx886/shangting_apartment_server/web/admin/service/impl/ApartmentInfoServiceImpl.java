@@ -16,7 +16,6 @@ import com.github.wrx886.shangting_apartment_server.web.admin.mapper.FacilityInf
 import com.github.wrx886.shangting_apartment_server.web.admin.mapper.FeeValueMapper;
 import com.github.wrx886.shangting_apartment_server.web.admin.mapper.GraphInfoMapper;
 import com.github.wrx886.shangting_apartment_server.web.admin.mapper.LabelInfoMapper;
-import com.github.wrx886.shangting_apartment_server.web.admin.mapper.RoomInfoMapper;
 import com.github.wrx886.shangting_apartment_server.web.admin.service.ApartmentFacilityService;
 import com.github.wrx886.shangting_apartment_server.web.admin.service.ApartmentFeeValueService;
 import com.github.wrx886.shangting_apartment_server.web.admin.service.ApartmentInfoService;

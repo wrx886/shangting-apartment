@@ -1,7 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.wrx886.shangting_apartment_server.web.admin.mapper.RoomInfoMapper">
+    <!-- 根据条件分页查询房间列表的map映射 -->
+    <resultMap id="RoomItemVo" type="com.github.wrx886.shangting_apartment_server.web.admin.vo.room.RoomItemVo">
+        <!-- RoomInfo 映射 -->
+        <id property="id" column="id"/>
+        <result property="roomNumber" column="room_number"/>
+        <result property="rent" column="rent"/>
+        <result property="apartmentId" column="apartment_id"/>
+        <result property="isRelease" column="is_release"/>
+        <!-- 租约结束日期 -->
+        <result property="leaseEndDate" column="lease_end_date"/>
+        <!-- 是否入住 -->
+        <result property="isCheckIn" column="is_check_in"/>
+        <!-- ApartmentInfo -->
+        <collection property="apartmentInfo" ofType="com.github.wrx886.shangting_apartment_server.model.entity.ApartmentInfo">
+            <id property="id" column="apartment_info_id"/>
+            <result property="name" column="apartment_info_name" />
+            <result property="introduction" column="apartment_info_introduction" />
+            <result property="districtId" column="apartment_info_district_id" />
+            <result property="districtName" column="apartment_info_district_name" />
+            <result property="cityId" column="apartment_info_city_id" />
+            <result property="cityName" column="apartment_info_city_name" />
+            <result property="provinceId" column="apartment_info_province_id" />
+            <result property="provinceName" column="apartment_info_province_name" />
+            <result property="addressDetail" column="apartment_info_address_detail" />
+            <result property="latitude" column="apartment_info_latitude" />
+            <result property="longitude" column="apartment_info_longitude" />
+            <result property="phone" column="apartment_info_phone" />
+            <result property="isRelease" column="apartment_info_is_release" />
+        </collection>
+    </resultMap>
+
+    <!-- 根据条件分页查询房间列表 -->
+    <select id="pageRoomItemVo" resultMap="RoomItemVo">
+        SELECT 
+            # RoomInfo
+            ri.id                                       AS id,
+            ri.room_number                              AS room_number,
+            ri.rent                                     AS rent,
+            ri.apartment_id                             AS apartment_id,
+            ri.is_release                               AS is_release,
+            # 租约结束日期
+            la.lease_end_date                           AS lease_end_date,
+            # 是否入住
+            IF(la.lease_end_date IS NULL, FALSE, TRUE)  AS is_check_in,
+            # ApartmentInfo
+            ai.id                                       AS apartment_info_id,
+            ai.name                                     AS apartment_info_name,
+            ai.introduction                             AS apartment_info_introduction,
+            ai.district_id                              AS apartment_info_district_id,
+            ai.district_name                            AS apartment_info_district_name,
+            ai.city_id                                  AS apartment_info_city_id,
+            ai.city_name                                AS apartment_info_city_name,
+            ai.province_id                              AS apartment_info_province_id,
+            ai.province_name                            AS apartment_info_province_name,
+            ai.address_detail                           AS apartment_info_address_detail,
+            ai.latitude                                 AS apartment_info_latitude,
+            ai.longitude                                AS apartment_info_longitude,
+            ai.phone                                    AS apartment_info_phone,
+            ai.is_release                               AS apartment_info_is_release
+        FROM
+            room_info AS ri
+            LEFT JOIN room_lease_term AS rlt ON 
+                rlt.is_deleted = 0 
+                AND rlt.room_id = ri.id
+            LEFT JOIN lease_agreement AS la ON 
+                la.is_deleted = 0
+                AND la.lease_term_id = rlt.lease_term_id
+                AND la.status IN (2, 5)
+            LEFT JOIN apartment_info AS ai ON 
+                ai.is_deleted = 0 
+                AND ai.id = ri.apartment_id 
+        <where>
+            ri.is_deleted = 0
+            <if test="queryVo.provinceId != null">
+                AND ai.province_id = #{queryVo.provinceId}
+            </if>
+            <if test="queryVo.cityId != null">
+                AND queryVo.cityId = ai.city_id
+            </if>
+            <if test="queryVo.districtId != null">
+                AND queryVo.districtId = ai.district_id
+            </if>
+            <if test="queryVo.apartmentId != null">
+                AND queryVo.apartmentId = ai.id
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据id获取房间详细信息 -->
 
 </mapper>

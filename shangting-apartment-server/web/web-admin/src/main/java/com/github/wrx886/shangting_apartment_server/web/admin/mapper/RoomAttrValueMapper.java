@@ -1,6 +1,10 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.mapper;
 
 import com.github.wrx886.shangting_apartment_server.model.entity.RoomAttrValue;
+import com.github.wrx886.shangting_apartment_server.web.admin.vo.attr.AttrValueVo;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -10,7 +14,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.atguigu.lease.model.RoomAttrValue
 */
 public interface RoomAttrValueMapper extends BaseMapper<RoomAttrValue> {
-
+    // 根据房间 id 查询属性信息列表
+    List<AttrValueVo> selectByRoomId(Long id);
 }
 
 

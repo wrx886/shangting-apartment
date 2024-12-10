@@ -3,7 +3,6 @@ package com.github.wrx886.shangting_apartment_server.model.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,7 +10,6 @@ import lombok.EqualsAndHashCode;
 @TableName(value = "room_facility")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
 public class RoomFacility extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

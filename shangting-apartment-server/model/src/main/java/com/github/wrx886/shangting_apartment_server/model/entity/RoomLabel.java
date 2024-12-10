@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 @TableName(value = "room_label")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
 public class RoomLabel extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

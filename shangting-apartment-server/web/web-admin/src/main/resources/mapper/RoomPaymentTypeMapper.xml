@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.wrx886.shangting_apartment_server.web.admin.mapper.RoomPaymentTypeMapper">
-
+    <!-- 根据房间 id 查询支付方式列表 -->
+    <select id="selectByRoomId" resultType="com.github.wrx886.shangting_apartment_server.model.entity.PaymentType">
+        SELECT 
+            pt.id AS id,
+            pt.name AS name,
+            pt.pay_month_count AS pay_month_count,
+            pt.additional_info AS additional_info
+        FROM room_payment_type AS rpt
+            LEFT JOIN payment_type AS pt ON pt.is_deleted = 0 AND pt.id = rpt.payment_type_id
+        WHERE rpt.is_deleted = 0 AND rpt.room_id = #{id}
+    </select>
 </mapper>

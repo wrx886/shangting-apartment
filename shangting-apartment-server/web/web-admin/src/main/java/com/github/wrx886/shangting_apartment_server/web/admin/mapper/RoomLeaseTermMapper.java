@@ -1,6 +1,10 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.mapper;
 
+import com.github.wrx886.shangting_apartment_server.model.entity.LeaseTerm;
 import com.github.wrx886.shangting_apartment_server.model.entity.RoomLeaseTerm;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -10,7 +14,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.atguigu.lease.model.RoomLeaseTerm
 */
 public interface RoomLeaseTermMapper extends BaseMapper<RoomLeaseTerm> {
-
+    // 根据房间 id 查询 查询可选租期列表
+    List<LeaseTerm> selectByRoomId(Long id);
 }
 
 

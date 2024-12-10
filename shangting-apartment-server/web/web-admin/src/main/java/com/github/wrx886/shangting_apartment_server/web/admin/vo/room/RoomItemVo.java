@@ -4,11 +4,11 @@ import com.github.wrx886.shangting_apartment_server.model.entity.ApartmentInfo;
 import com.github.wrx886.shangting_apartment_server.model.entity.RoomInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
+import lombok.EqualsAndHashCode;
 import java.util.Date;
 
-
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Schema(description = "房间信息")
 public class RoomItemVo extends RoomInfo {
 

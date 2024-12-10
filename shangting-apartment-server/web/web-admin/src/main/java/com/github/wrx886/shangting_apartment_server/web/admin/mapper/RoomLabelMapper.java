@@ -1,6 +1,10 @@
 package com.github.wrx886.shangting_apartment_server.web.admin.mapper;
 
+import com.github.wrx886.shangting_apartment_server.model.entity.LabelInfo;
 import com.github.wrx886.shangting_apartment_server.model.entity.RoomLabel;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -10,7 +14,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.atguigu.lease.model.RoomLabel
 */
 public interface RoomLabelMapper extends BaseMapper<RoomLabel> {
-
+    // 根据房间 id 查询标签信息列表
+    List<LabelInfo> selectByRoomId(Long id);
 }
 
 

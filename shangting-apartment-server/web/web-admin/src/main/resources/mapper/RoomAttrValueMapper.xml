@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.wrx886.shangting_apartment_server.web.admin.mapper.RoomAttrValueMapper">
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+    namespace="com.github.wrx886.shangting_apartment_server.web.admin.mapper.RoomAttrValueMapper">
+    <!-- 根据房间 id 查询属性信息列表 -->
+    <select id="selectByRoomId" resultType="com.github.wrx886.shangting_apartment_server.web.admin.vo.attr.AttrValueVo">
+        SELECT 
+            av.id           AS id,
+            av.name         AS name,
+            av.attr_key_id  AS attr_key_id,
+            ak.name         AS attr_key_name
+        FROM
+            room_attr_value AS rav
+            LEFT JOIN attr_value AS av ON av.is_deleted = 0
+            AND av.id = rav.attr_value_id
+            LEFT JOIN attr_key AS ak ON ak.is_deleted = 0
+            AND ak.id = av.attr_key_id
+        WHERE
+            rav.is_deleted = 0
+            AND rav.room_id = #{id}
+    </select>
 </mapper>

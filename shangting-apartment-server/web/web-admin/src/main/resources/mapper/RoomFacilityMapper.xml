@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.wrx886.shangting_apartment_server.web.admin.mapper.RoomFacilityMapper">
-
+    <select id="selectByRoomId" resultType="com.github.wrx886.shangting_apartment_server.model.entity.FacilityInfo">
+        SELECT 
+            fi.id AS id,
+            fi.type AS type,
+            fi.name AS name,
+            fi.icon AS icon
+        FROM
+            room_facility AS rf
+            LEFT JOIN facility_info AS fi ON fi.is_deleted = 0 AND rf.facility_id = fi.id
+        WHERE
+            rf.is_deleted = 0
+            AND rf.room_id = #{id}
+    </select>
 </mapper>
